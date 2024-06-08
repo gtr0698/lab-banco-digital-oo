@@ -17,16 +17,25 @@ public abstract class Conta implements IConta {
 
 	@Override
 	public void sacar(double valor) {
-		saldo -= valor;
+		if (valor <= 0) {
+            throw new IllegalArgumentException("O valor de saque deve ser positivo.");
+        }
+        saldo -= valor;
 	}
 
 	@Override
 	public void depositar(double valor) {
-		saldo += valor;
+		if (valor <= 0) {
+            throw new IllegalArgumentException("O valor de depósito deve ser positivo.");
+        }
+        saldo += valor;
 	}
 
 	@Override
 	public void transferir(double valor, IConta contaDestino) {
+		if(valor <= 0){
+			throw new IllegalArgumentException("O valor de transferencia deve ser positivo.");
+		}
 		this.sacar(valor);
 		contaDestino.depositar(valor);
 	}
